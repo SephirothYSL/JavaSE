@@ -215,7 +215,12 @@ class TestIfJob2 {
 		
 		float num = scanner.nextFloat();
 		
-		if (num > 99.99) {
+		if (num < 0) {
+			System.out.println("输入了非法数据");
+			System.exit(0);
+		}
+		
+		if (num > 99.99F) {
 			System.out.println("您是VVIP");
 		} else {
 			System.out.println("您是VIP");
