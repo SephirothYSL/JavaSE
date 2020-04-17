@@ -137,6 +137,86 @@ class TestIfElseIf {
 
 ### 1.2 switch 分支结构
 
+```shell
+格式：
+	switch (变量) {
+		case 常量1:
+			代码块1;
+			break;
+		case 常量2:
+			代码块2;
+			break;
+		case 常量3:
+			代码块3;
+			break;
+		default:
+			代码块4;
+			break;
+	}
+
+执行流程：
+	把变量和依次和每一个 case 进行匹配，如果有相同的就执行对应的代码块，遇到 break 结束，如果和每一个 case 都不匹配，就执行 default 中的代码块
+```
+
+```java
+/*
+	键盘录入一个数字(1-7),输出对应的星期几
+*/
+
+import java.util.Scanner;
+
+class TestSwitch2 {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("请输入一个数字(1-7)：");
+		
+		int num = scanner.nextInt();
+		
+		switch (num) {
+			case 1:
+				System.out.println("星期一");
+				break;
+			case 2:
+				System.out.println("星期二");
+				break;
+			case 3:
+				System.out.println("星期三");
+				break;
+			case 4:
+				System.out.println("星期四");
+				break;
+			case 5:
+				System.out.println("星期五");
+				break;
+			case 6:
+				System.out.println("星期六");
+				break;
+			case 7:
+				System.out.println("星期日");
+				break;
+			default:
+				System.out.println("输入了无效的数据~");
+				break;
+		}	
+	}
+}
+```
+
+【注意】
+
+```shell
+1、在 switch 语句中，有且只能执行case，或者default之后的代码块。如果存在在 case 和default 之外的代码，是无法执行的，对于Java而言是无效代码。
+2、switch 里面可以判断的变量可以是byte、short、int、char类型，不能是long类型
+	JDK5以后支持枚举
+	JDK7以后支持字符串
+3、break 关键字表示中断，用来跳出 switch 语句，如果不加 break 会导致 break 穿透问题
+4、default 关键字表示默认情况，用来匹配所有常量都不匹配的情况，相当于 if else 中的 else
+5、case 后面只能是常量不能是变量，每个 case 后面的常量都不能相同
+6、default 可以省略但是最好不要省略
+7、default 可以放在其他和 case 并列的位置，但最好放在最后
+8、switch 语句类似于 if else if 语句，适合处理有针对性的问题
+```
+
 ## 2. 控制台录入
 
 ### 2.1 Scanner
@@ -215,12 +295,7 @@ class TestIfJob2 {
 		
 		float num = scanner.nextFloat();
 		
-		if (num < 0) {
-			System.out.println("输入了非法数据");
-			System.exit(0);
-		}
-		
-		if (num > 99.99F) {
+		if (num > 99.99) {
 			System.out.println("您是VVIP");
 		} else {
 			System.out.println("您是VIP");
