@@ -116,7 +116,7 @@ class Test {
 }
 ```
 
-![image-20200418154206686](C:\Users\CJF\AppData\Roaming\Typora\typora-user-images\image-20200418154206686.png)
+![img](https://ae01.alicdn.com/kf/H92d0a68a0a5f410a81e5abcb4bcac375E.png)
 
 对于 count = count++; 这个操作，按照 Java 的运行机制，可以这样简单的理解
 
