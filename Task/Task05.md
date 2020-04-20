@@ -17,6 +17,8 @@ class TestTask1 {
 }
 ```
 
+【注意】需要考虑可能会超出范围的问题，最好用double类型来接收
+
 ### 2、输入4个数，若第一个数第二个数相等，第三个数和第四个数的和与第一个数和第二个数的和相等，输出1，否则输出0
 
 ```java
@@ -103,6 +105,40 @@ class TestTask4 {
 }
 ```
 
+改进：
+
+```java
+import java.util.Scanner;
+
+class TestTask4 {
+	public static void main (String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int max = 0;
+		
+		System.out.println("请输入第一个数：");
+		int x = scanner.nextInt();
+		
+		System.out.println("请输入第二个数：");
+		int y = scanner.nextInt();
+		
+		System.out.println("请输入第三个数：");
+		int z = scanner.nextInt();
+		
+        max = x;
+        
+		if (y >= max) {
+			max = x;			
+		}
+		
+		if (z >= max) {
+			max = z;
+		}
+		
+		System.out.println("max：" + max);
+	}
+}
+```
+
 ### 5、输入一个月数，然后输出对应月份有多少天（不考虑闰年），将天数输出
 
 ```java
@@ -141,6 +177,8 @@ class TestTask5 {
 	}
 }
 ```
+
+【注意】1 == month，常量在前，避免少写一个等号导致的错误
 
 ### 6、9*9乘法表
 
@@ -194,6 +232,40 @@ class TestTask7 {
 }
 ```
 
+改进：
+
+```java
+import java.util.Scanner;
+
+class TestTask7 {
+	public static void main (String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("请输入一个正整数：");
+		int num = scanner.nextInt();
+		int index = 2;
+		
+		if (num <= 0) {
+			System.out.println("输入了非法的数据~");
+			System.exit(0);
+		}
+		
+		 System.out.print(num + "=1");
+
+		while (index <= num) {	
+            
+			if (num % index == 0) {
+				num = num / index;
+				System.out.print("*" + index);
+				index--;
+			}
+			
+			index++;
+		}
+	}
+}
+```
+
 ### 8、30位以内的斐波那契数列
 
 ```java
@@ -215,21 +287,42 @@ class TestTask8 {
 }
 ```
 
+非递归写法：
+
+```java
+class TestTask8 {
+	public static void main (String[] args) {			
+		int count = 0;
+		int num1 = 0;
+		int num2 = 1;
+		int index = 2;
+		
+		System.out.print(1 + "\t");
+	
+		while (index <= 30) {
+			count = num1 + num2;		
+			num1 = num2;
+			num2 = count;
+			System.out.print(count + "\t");
+			index++;
+		}
+	}
+}
+```
+
 ### 9、15的阶乘
 
 ```java
 class TestTask9 {
 	public static void main (String[] args) {
-		long total = mothed(15);
-		System.out.println(total);		
-	}
-	
-	public static long mothed (long num) {
-		if(num == 1){
-			return 1;
+		
+		long total = 1;
+		
+		for (int num = 15 ; num > 0 ; num--) {
+			total *= num;
 		}
 		
-		return num * mothed(num -1);
+		System.out.println(total);	
 	}
 }
 ```
@@ -312,6 +405,24 @@ class TestTask12 {
 		}
 		
 		System.out.println(result);
+	}
+}
+```
+
+```java
+import java.util.Scanner;
+
+class TestTask12 {
+	public static void main (String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("请输入一个数：");
+		int num = scanner.nextInt(); 
+
+		while (num > 0) {
+			System.out.print(num %= 10);
+            num /= 10; 
+		}
 	}
 }
 ```
