@@ -211,3 +211,39 @@ class Test {
 }
 ```
 
+## 2. 地址转移分析
+
+```java
+int[] array1 = new int[3];
+int[] array2 = new int[3];
+		
+array1[0] = 10;
+array2[0] = 20;
+		
+array1[2] = 30;
+		
+array2 = array1;
+		
+array1[0] = 40;
+array2[0] = 50;
+				
+System.out.println(array1[0]);
+System.out.println(array2[0]);
+```
+
+![](https://pic.images.ac.cn/image/5ea2e73156390.html)
+
+## 3. 数组作为参数传递分析
+
+```java
+int[] array ={1, 2, 3};
+		
+int num = seek(array, 1);
+	
+public static int seek(int[] array, int index) {
+		return array[index];
+}
+```
+
+![](https://pic.images.ac.cn/image/5ea2f0c0d83f8.html)
+
