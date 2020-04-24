@@ -80,12 +80,10 @@ class Task3 {
 	* @return int类型的下标
 	*/
 	public static int seekIndex(int[] array) {
-		int max = 0;
 		int index = 0;
 		
 		for (int i = 0; i < array.length; i++) {
-			if (array[i] > max) {
-				max = array[i];
+			if (array[i] > array[index]) {
 				index = i;
 			}
 		}
@@ -111,12 +109,10 @@ class Task4 {
 	* @return int类型的下标
 	*/
 	public static int seekIndex(int[] array) {
-		int min = array[0];
 		int index = 0;
 		
 		for (int i = 0; i < array.length; i++) {
-			if (array[i] < min) {
-				min = array[i];
+			if (array[i] < array[index]) {
 				index = i;
 			}
 		}
