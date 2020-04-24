@@ -99,7 +99,7 @@ class Task3 {
 class Task4 {
 	public static void main(String[] args) {
 		int[] array = {11, 3, 5, 17, 9, 2, 4, 6, 8, 10};
-		System.out.println("最大元素所在下标位置为：" + seekIndex(array));
+		System.out.println("最小元素所在下标位置为：" + seekIndex(array));
 	}
 	
 	/**
