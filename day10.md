@@ -231,7 +231,7 @@ System.out.println(array1[0]);
 System.out.println(array2[0]);
 ```
 
-![](https://pic.images.ac.cn/image/5ea2e73156390.html)
+![](https://p.pstatp.com/origin/feb90000df52e4cedd6e)
 
 ## 3. 数组作为参数传递分析
 
