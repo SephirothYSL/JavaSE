@@ -77,7 +77,7 @@ class Task3 {
 		
 		iterateOver(array);
 		
-		insert(array, 2, 100);
+		insert(array, 5, 100);
 		
 		iterateOver(array);
 	}
@@ -90,16 +90,17 @@ class Task3 {
 	* @param num   需要插入的数据
 	*/
 	public static void insert(int[] array, int index, int num) {
+		if (index >= array.length || index < 0) {
+			System.out.println("index out of bounds！");
+		}
+		
 		System.out.println("执行 insert 方法----------------------");
 		
-		for (int i = array.length - 1; i >= 0; i--) {
-			if (index == i) {
-				array[i] = num;
-				break;
-			}
-			
+		for (int i = array.length - 1; i > index; i--) {			
 			array[i] = array[i - 1];
 		}
+		
+		array[index] = num;
 	}
 	
 	/**
@@ -162,17 +163,11 @@ class Task3 {
 		System.out.println("请输入需要插入的数据：");
 		int num = scanner.nextInt();
 		
-		for (int i = array.length - 1; i >= 0; i--) {
-			
-			if (index == i) {
-				array[i] = num;
-				
-				return array;
-			}
-			
+		for (int i = array.length - 1; i > index; i--) {					
 			array[i] = array[i - 1];
 		}
 
+        array[index] = num;
 		return array;
 	}
 	
@@ -227,7 +222,7 @@ class Task4 {
 		
 		iterateOver(array);
 		
-		delete(array, 9);
+		delete(array, 0);
 		
 		iterateOver(array);
 	}
@@ -241,13 +236,10 @@ class Task4 {
 	public static void delete(int[] array, int index) {
 		System.out.println("delete方法执行-------------------");
 		
-		for (int i = 0; i < array.length - 1; i++) {
-			if (index <= i) {
+		for (int i = index; i < array.length - 1; i++) {
 				int temp = array[i];
 				array[i] = array[i + 1];
 				array[i + 1] = temp;
-
-			}
 		}
 		
 		array[array.length - 1] = 0;
