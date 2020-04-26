@@ -283,26 +283,31 @@ class Task5 {
 		
 		int index = 0;
 		
-		System.out.println("指定元素的所有下标为：");
+		System.out.println("指定元素的下标为：");
 		
 		while (index < array.length) {
-			int index1 = showIndexOfNum(array, 3, index);
+			int result = showIndexOfNum(array, 3, index);
 		
-			if (index1 == index) {
-				System.out.print(index1 + " ");
+			if (-1 == result) {
+				System.out.print("当前元素不存在");
+				break;
+			}
+		
+			if (index == result) {
+				System.out.print(result + " ");
 			}
 						
 			index++;
 		}				
 	}
 	
-	/**
+	/** 
 	* 找出指定元素在指定数组中所有下标位置
 	*
 	* @param array 插入一个数组
 	* @param num 指定的元素 int类型
 	* @param index 插入下标 从下标位置开始检索
-	* @return int类型的下标
+	* @return int类型的下标 如果指定元素不存在就返回-1
 	*/
 	public static int showIndexOfNum(int[] array, int num, int index) {		
 		for (int i = index; i < array.length; i++) {
@@ -312,7 +317,7 @@ class Task5 {
 			}
 		}
 		
-		return index;
+		return -1;
 	}
 	
 	/**
