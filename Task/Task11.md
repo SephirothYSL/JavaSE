@@ -167,3 +167,59 @@ public class Task4 {
 }
 ```
 
+## 解法五
+
+返回有效元素的个数
+
+```java
+import java.util.Arrays;
+
+public class Task1ExtendFinal {
+	public static void main(String[] args) {
+		// 指定的数组
+		int[] array = { 1, 2, 3, 1, 2, 3, 1, 2, 3 };
+
+		// 用来接收有效下标的数组，初始化容量等于指定数组容量
+		int[] indexes = new int[array.length];
+
+		// 接收有效元素的个数
+		int count = seekAllIndex(array, indexes, 1);
+
+		if (0 == count) {
+			System.out.println("查询的元素不存在.....");
+		} else {
+			// 创建一个数组剔除无效元素
+			int[] result = Arrays.copyOf(indexes, count);
+			System.out.println(Arrays.toString(result));
+		}
+
+	}
+
+	/**
+	 * 打印指定数组中的所有下标
+	 * 
+	 * @param array   传入指定的数组
+	 * @param indexes 传入用来接收下标的空数组
+	 * @param num     指定被查找的元素
+	 * @return count 返回有效下标元素的个数 
+	 */
+	public static int seekAllIndex(int[] array, int[] indexes, int num) {
+		if (indexes.length < array.length) {
+			System.out.println("Input Parameter is Invalid！！！");
+			return 0;
+		}
+
+		int count = 0;
+
+		for (int i = 0; i < array.length; i++) {
+			if (num == array[i]) {
+				indexes[count] = i;
+				count++;
+			}
+		}
+
+		return count;
+	}
+}
+```
+
