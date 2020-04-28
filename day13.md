@@ -124,7 +124,11 @@ javap -c -l -private 类名.class
 
 ### 5.3 多态
 
-## 6. 类与类之间的调用
+## 6. 对象内存分析图
+
+![https://ae01.alicdn.com/kf/H60105ec189af4d4fb34aa0ce9d4320dbu.jpg](https://ae01.alicdn.com/kf/H60105ec189af4d4fb34aa0ce9d4320dbu.jpg)
+
+## 7. 类与类之间的调用
 
 汽车类：
 
