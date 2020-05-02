@@ -34,15 +34,9 @@ public class Student {
 		this.id = id;
 	}
 
-	public Student(int id, String name) {
+	public Student(String name, int age, char sex, float grade) {
 		super();
-		this.id = id;
-		this.name = name;
-	}
-
-	public Student(int id, String name, int age, char sex, float grade) {
-		super();
-		this.id = id;
+		
 		this.name = name;
 		this.age = age;
 		this.sex = sex;
@@ -123,25 +117,27 @@ public class Control {
 	public void add(Student student) {
 		System.out.println("添加新同学：" + student.getName());
 		if (0 == index) {
+			student.setId(1);
 			this.student[0] = student;
 			index++;
-			System.out.println("添加成功");
+			System.out.println("添加成功，新同学的id为：" + 1);
 			return;
 		}
 
 		for (int i = 0; i < index; i++) {
 
-			if (this.student[i].getId() == student.getId() || this.student[i].getName() == student.getName()) {
+			if (this.student[i].getName() == student.getName()) {
 				System.out.println("此id或姓名已存在，添加失败~~");
 				return;
 			}
 
 			if (null == this.student[i + 1]) {
+				student.setId(i + 1 + 1);
 				this.student[i + 1] = student;
 			}
 		}
 		index++;
-		System.out.println("添加成功");
+		System.out.println("添加成功，新同学的id为：" + student.getId());
 	}
 
 	/**
@@ -150,7 +146,7 @@ public class Control {
 	 * @param name 学生姓名
 	 */
 	public void delete(int id, String name) {
-		System.out.println("删除操作执行~~~");
+		System.out.println("删除操作执行[" + id + " " + name + "]~~~");
 		for (int i = 0; i < index; i++) {
 			if(id == student[i].getId() && name.equals( student[i].getName())) {
 				student[i].setId(0);
@@ -287,16 +283,16 @@ public class TestStudent {
 	public static void main(String[] args) {
 		Control control = new Control();
 		
-		control.add(new Student(1,"Buffer",23,'男',100.0F));
-		control.add(new Student(2,"Smoot",21,'男',97.0F));
-		control.add(new Student(3,"Balance",21,'男',99.0F));
-		control.add(new Student(4,"Wizard",21,'男',99.6F));
-		control.add(new Student(5,"Waner",30,'女',99.9F));
-		control.add(new Student(6,"Candy",32,'女',96.0F));
-		control.add(new Student(7,"Yancy",20,'女',94.0F));
-		control.add(new Student(8,"Steven",21,'男',91.0F));
-		control.add(new Student(9,"Arthur",29,'男',98.0F));
-		control.add(new Student(10,"Xavier",21,'男',99.3F));
+		control.add(new Student("Buffer",23,'男',100.0F));
+		control.add(new Student("Smoot",21,'男',97.0F));
+		control.add(new Student("Balance",21,'男',99.0F));
+		control.add(new Student("Wizard",21,'男',99.6F));
+		control.add(new Student("Waner",30,'女',99.9F));
+		control.add(new Student("Candy",32,'女',96.0F));
+		control.add(new Student("Yancy",20,'女',94.0F));
+		control.add(new Student("Steven",21,'男',91.0F));
+		control.add(new Student("Arthur",29,'男',98.0F));
+		control.add(new Student("Xavier",21,'男',99.3F));
 		System.out.println("--------------------------------");
 		
 		control.show();
@@ -324,25 +320,25 @@ public class TestStudent {
 
 ```java
 添加新同学：Buffer
-添加成功
+添加成功，新同学的id为：1
 添加新同学：Smoot
-添加成功
+添加成功，新同学的id为：2
 添加新同学：Balance
-添加成功
+添加成功，新同学的id为：3
 添加新同学：Wizard
-添加成功
+添加成功，新同学的id为：4
 添加新同学：Waner
-添加成功
+添加成功，新同学的id为：5
 添加新同学：Candy
-添加成功
+添加成功，新同学的id为：6
 添加新同学：Yancy
-添加成功
+添加成功，新同学的id为：7
 添加新同学：Steven
-添加成功
+添加成功，新同学的id为：8
 添加新同学：Arthur
-添加成功
+添加成功，新同学的id为：9
 添加新同学：Xavier
-添加成功
+添加成功，新同学的id为：10
 --------------------------------
 展示所有学生的信息：
 学生id	学生姓名	学生年龄	学生性别	学生成绩	
@@ -369,7 +365,7 @@ public class TestStudent {
 学生id	学生姓名	学生年龄	学生性别	学生成绩	
 2	Smoot	21	男	97.0	
 --------------------------------
-删除操作执行~~~
+删除操作执行[2 Smoot]~~~
 删除操作成功~~~
 --------------------------------
 展示所有学生的信息：
@@ -384,6 +380,5 @@ public class TestStudent {
 9	Arthur	29	男	98.0	
 10	Xavier	21	男	99.3	
 --------------------------------
-
 ```
 
