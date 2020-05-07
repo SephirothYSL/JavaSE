@@ -164,3 +164,128 @@ main方法
 ```
 
 根据结果可以发现，虽然main方法是程序执行的入口，但是程序执行前的加载过程，要对static修饰的变量、方法、代码块进行加载，按照顺序执行，刚开始我不理解为什么静态代码块没有在最开始就执行，但其实把静态对象当成普通的变量就好理解了，就是按照static出现的顺序往下执行
+
+## 面试题五
+
+```java
+class Bowl {
+	public Bowl(int marker) {
+		System.out.println("Bowl(" + marker + ")");
+	}
+
+	public void f1(int marker) {
+		System.out.println("f1(" + marker + ")");
+	}
+}
+
+class Table {
+	static Bowl bowl1 = new Bowl(1);
+
+	public Table() {
+		System.out.println("Table()");
+		bowl2.f1(1);
+	}
+
+	public void f2(int marker) {
+		System.out.println("f2(" + marker + ")");
+	}
+
+	static Bowl bowl2 = new Bowl(2);
+}
+
+class Cupboard {
+	Bowl bowl3 = new Bowl(3);
+	static Bowl bowl4 = new Bowl(4);
+
+	public Cupboard() {
+		System.out.println("Cupboard()");
+		bowl4.f1(2);
+	}
+
+	public void f3(int marker) {
+		System.out.println("f3(" + marker + ")");
+	}
+
+	static Bowl bowl5 = new Bowl(5);
+}
+
+public class StaticInit {
+	public static void main(String[] args) {
+		System.out.println("Creating new Cupboard() int main");
+		new Cupboard();
+
+		System.out.println("Creating new Cupboard() int main");
+		new Cupboard();
+
+		table.f2(1);
+		cupboard.f3(1);
+	}
+
+	static Table table = new Table();
+	static Cupboard cupboard = new Cupboard();
+}
+```
+
+结果
+
+```java
+Bowl(1)
+Bowl(2)
+Table()
+f1(1)
+Bowl(4)
+Bowl(5)
+Bowl(3)
+Cupboard()
+f1(2)
+Creating new Cupboard() int main
+Bowl(3)
+Cupboard()
+f1(2)
+Creating new Cupboard() int main
+Bowl(3)
+Cupboard()
+f1(2)
+f2(1)
+f3(1)
+```
+
+1、首先找程序的入口main方法所在的类StaticInit，加载StaticInit类时发现里面有两个static修饰的对象，按照顺序先执行table对象的创建，进行Table类的加载时发现有两个static修饰的对象bowl1和bowl2，所以先进行Bowl类的加载，加载完毕调用Bowl的构造方法创建参数为1的bowl1对象，控制台展示Bowl(1)
+
+2、此时创建完bowl1的对象，开始创建static修饰的对象bowl2，调用Bowl的构造方法创建参数为2的bowl2对象，控制台展示Bowl2
+
+3、此时Table类加载完毕，开始创建table对象，执行Table类的构造方法，控制台展示Table()
+
+4、调用bowl2的f1方法，传入的参数为1，控制台展示f1(1)，此时static修饰的对象table加载完毕
+
+5、接下来进行对cupboard对象的创建，首先加载Cupboard类，发现有两个static修饰的对象bowl4和bowl5，根据顺序先进行bowl4的创建，执行Bowl的构造方法，传入的参数为4，控制台展示Bowl(4)
+
+6、然后创建bowl5对象，执行Bowl的构造方法，传入的参数为5，控制台展示Bowl(5)
+
+7、此时两个静态对象加载完成，开始Cupboard类的初始化，执行bowl3对象的创建，执行Bowl的构造方法，传入的参数为3，控制台展示Bowl(3)
+
+8、Cupboard类初始化结束，执行cupboard对象的创建，执行Cupboard类的构造方法，控制台展示Cupboard()
+
+9、调用bowl4的f1方法，传入的参数为2，控制台展示f1(2)，此时static修饰的对象cupboard加载完毕
+
+10、StaticInit类加载完成，开始执行main方法，控制台展示Creating new Cupboard() int main
+
+11、执行cupboard对象的创建，初始化Cupboard类时创建bowl3对象，执行Bowl类的构造方法，传入的参数为3，控制台输出Bowl(3)
+
+12、Cupboard类初始化结束，执行cupboard对象的创建，执行Cupboard类的构造方法，控制台展示Cupboard()
+
+13、调用bowl4的f1方法，传入的参数为2，控制台展示f1(2)，此时cupboard匿名对象创建完毕
+
+14、此时main方法继续执行，控制台展示Creating new Cupboard() int main
+
+15、执行cupboard对象的创建，初始化Cupboard类时创建bowl3对象，执行Bowl类的构造方法，传入的参数为3，控制台输出Bowl(3)
+
+16、Cupboard类初始化结束，执行cupboard对象的创建，执行Cupboard类的构造方法，控制台展示Cupboard()
+
+17、调用bowl4的f1方法，传入的参数为2，控制台展示f1(2)，此时cupboard匿名对象创建完毕
+
+18、调用table对象的f2方法，传入的参数为1，控制台展示f2(1)
+
+19、调用cupboard对象的f3方法，传入的参数为1，控制台展示f3(1)
+
+20、程序执行完毕
