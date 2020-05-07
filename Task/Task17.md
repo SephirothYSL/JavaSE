@@ -1,4 +1,6 @@
-## 作业(多态)
+## 作业
+
+### 第一题
 
 员工类：
 
@@ -134,12 +136,12 @@ public class TestCar {
 		bus.type = "公交车";
 
 		Employee employee = new Employee("Buffer");
-		employee.goHome(vehicle);	// Buffer正在乘坐小汽车回家 \n Car run！！！
-		employee.goHome(bus);	// Buffer正在乘坐公交车回家 \n Bus run！！！
+		employee.goHome(vehicle);	
+		employee.goHome(bus);	
 
 		Employee employee2 = new Employee("Banlance");
 		Vehicle veh = employee2.buyVehicle(100);
-		employee2.goHome(veh);	// Banlance正在乘坐公交车回家 \n Bus run！！！
+		employee2.goHome(veh);	
 
 		// 拆箱
 		if (veh instanceof Bike) {
@@ -147,12 +149,115 @@ public class TestCar {
 			System.out.println("自行车的颜色：" + bike1.color);
 		} else if (veh instanceof Bus) {
 			Bus bus1 = (Bus) veh;
-			System.out.println("公交车的座位数：" + bus1.seatNum);	// 公交车的座位数：16
+			System.out.println("公交车的座位数：" + bus1.seatNum);	
 		} else if (veh instanceof Car) {
 			Car car1 = (Car) veh;
 			System.out.println("小汽车的品牌：" + car1.brand);
 		}
 	}
 }
+```
+
+结果
+
+```java
+Buffer正在乘坐小汽车回家
+Car run！！！
+Buffer正在乘坐公交车回家 
+Bus run！！！
+Banlance正在乘坐公交车回家
+Bus run！！！
+公交车的座位数：16
+```
+
+### 第二题
+
+```java
+public class Test {
+
+	public static void main(String[] args) {
+		Super sup = new Sub();
+
+		sup.method1(); 
+		sup.method2(); 
+
+		Sub sub = (Sub) sup;
+
+		sub.method1(); 
+		sub.method2(); 
+	}
+}
+
+class Super {
+	public static void method1() {
+		System.out.println("Super method1");
+	}
+
+	public void method2() {
+		System.out.println("Super method2");
+	}
+}
+
+class Sub extends Super {
+	public static void method1() {
+		System.out.println("Sub method1");
+	}
+
+	@Override
+	public void method2() {
+		System.out.println("Sub method2");
+	}
+}
+```
+
+结果
+
+```java
+Super method1
+Sub method2
+Sub method1
+Sub method2
+```
+
+### 第三题
+
+```java
+public class Task2 {
+	public static void main(String[] args) {
+		Myclass mc1 = new Myclass();
+		System.out.println(mc1.i);
+
+		Myclass mc2 = new Myclass(10);
+		System.out.println(mc2.i);
+	}
+}
+
+class Myclass {
+	static int i = 10;
+
+	static {
+		i = 20;
+		System.out.println("In static");
+	}
+
+	public Myclass() {
+		System.out.println("Myclass()");
+	}
+
+	public Myclass(int i) {
+		System.out.println("Myclass(int)");
+		this.i = i;
+	}
+}
+```
+
+结果
+
+```java
+In static
+Myclass()
+20
+Myclass(int)
+10
 ```
 
