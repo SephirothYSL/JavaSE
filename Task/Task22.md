@@ -65,7 +65,7 @@ public interface Tools {
 public class AcceptOverAge implements Tools {
 
 	/**
-	 * 判断成绩是否大于50
+	 * 判断年龄是否小于30
 	 */	
 	@Override
 	public boolean accept(Student stu) {
