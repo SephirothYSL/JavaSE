@@ -29,11 +29,9 @@ public class Test {
 		}
 
 		for (int i = 2; i < num; i++) {
-			if (isNum(i)) {
-				if (isNum(num - i) && 0 != (num - i) % 2) {
-					System.out.println("第一个数为：" + i + "第二个数为：" + (num - i));
-					return;
-				}
+			if (isNum(i) && isNum(num - i)) {
+				System.out.println("第一个数为：" + i + " 第二个数为：" + (num - i));
+				return;
 			}
 		}
 	}
