@@ -5,7 +5,7 @@ public class Test {
 	public static void main(String[] args) {
 		HashSet<Integer> hashSet = new HashSet<Integer>();
 
-		while (11 != hashSet.size()) {
+		while (10 != hashSet.size()) {
 			hashSet.add((int) (Math.random() * 20));
 		}
 
