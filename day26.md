@@ -85,6 +85,51 @@ public class TestHashMap {
 }
 ```
 
+【注意】HashMap 添加自定义数据类型元素时需要重写其 equals 和 hashCode 方法
+
+学生类
+
+```java
+public class Student {
+	private String name;
+	private int age;
+	private char sex;
+	
+	// Constructor setter getter toString equals hashCode
+}
+```
+
+测试类
+
+```java
+public class TestMap2 {
+	public static void main(String[] args) {
+		Map<Student, Integer> hashMap = new HashMap<Student, Integer>();
+
+		hashMap.put(new Student("Buffer", 23, '男'), 1);
+		hashMap.put(new Student("Balance", 23, '男'), 2);
+		hashMap.put(new Student("Buffer", 22, '男'), 3);
+		hashMap.put(new Student("Buffer", 23, '女'), 4);
+		hashMap.put(new Student("Buffer", 23, '男'), 5);
+
+		Set<Entry<Student, Integer>> entrySet = hashMap.entrySet();
+
+		for (Entry<Student, Integer> entry : entrySet) {
+			System.out.println(entry);
+		}
+	}
+}
+```
+
+结果
+
+```java
+Student [name=Balance, age=23, sex=男]=2
+Student [name=Buffer, age=23, sex=女]=4
+Student [name=Buffer, age=22, sex=男]=3
+Student [name=Buffer, age=23, sex=男]=5
+```
+
 ### 1.2 TreeMap
 
 基于红黑树（Red-Black tree）的 NavigableMap  实现。该映射根据其键的自然顺序进行排序，或者根据创建映射时提供的 Comparator  进行排序，具体取决于使用的构造方法。 
