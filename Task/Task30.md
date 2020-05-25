@@ -82,3 +82,49 @@ public class Task2 {
 }
 ```
 
+## 第三题
+
+自定义一个方法用来修改任意类的任意参数
+
+```java
+public class Tools {
+	public static void setProperty(Object obj, String property, Object value)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+		Class<? extends Object> class1 = obj.getClass();
+
+		Field field = class1.getDeclaredField(property);
+		field.setAccessible(true);
+		field.set(obj, value);
+	}
+}
+```
+
+### 实体类
+
+```java
+class Person {
+	private String name;
+	private int age;
+
+	// Constructor setter getter toString
+}
+```
+
+### 测试类
+
+```java
+public class Task3 {
+	public static void main(String[] args)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+		Person person = new Person();
+
+		Tools.setProperty(person, "name", "Buffer");
+		Tools.setProperty(person, "age", 23);
+		
+		System.out.println(person);	// Person [name=Buffer, age=23]
+	}
+}
+```
+
