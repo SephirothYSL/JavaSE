@@ -36,8 +36,8 @@ public class Test {
 		linkedList.addFirst("Hello");
 		linkedList.addLast("World");
 
-		System.out.println(linkedList.getFirst());	// Buffer
-		System.out.println(linkedList.getLast());	// Eve
+		System.out.println(linkedList.getFirst());	// Hello
+		System.out.println(linkedList.getLast());	// World
 
 		System.out.println(linkedList);	// [Hello, Buffer, Balance, Wizard, Blanche, Eve, World]
 
