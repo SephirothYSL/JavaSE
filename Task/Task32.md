@@ -7,37 +7,44 @@ public class Ticket implements Runnable {
 	// 票号
 	private int num = 0;
 
+	private static final int MAX_COUNT = 100;
+
 	@Override
 	public void run() {
+		// 当前窗口卖的票数
+		int count = 0;
+
 		// 当票号小于100时卖票
-		while (num < 100) {
+		while (num < MAX_COUNT) {
 
 			// synchronized 锁，锁对象为当前 Ticket 对象
 			synchronized (this) {
 				// 双重验证
-				if (num < 100) {
+				if (num < MAX_COUNT) {
 					num++;
 					// 打印出票信息
-					StringBuilder printInfor = Tools.printInfor(num);
+					String printInfor = Tools.printInfor(num);
+
+					// 当前窗口卖的票自增
+					++count;
 
 					try {
 						// 保存至文件
 						Tools.save(printInfor);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 
-					try {
 						// 睡0.1秒
 						Thread.sleep(100);
+					} catch (IOException e1) {
+						e1.printStackTrace();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
 			}
-
 		}
+
+		// 打印当前窗口卖的总票数
+		System.out.println(Thread.currentThread().getName() + "一共卖了：" + count + " 张票");
 	}
 
 }
@@ -48,35 +55,45 @@ public class Ticket implements Runnable {
 ```java
 public class Tools {
 
+	private static final Long CURRENT_TIME = System.currentTimeMillis();
+
 	/**
 	 * 将可变长字符串保存到文件中
+	 * 
 	 * @param sb 传入一个 StringBuilder 类型的参数
 	 * @throws IOException
 	 */
-	public static void save(StringBuilder sb) throws IOException {
+	public static void save(String str) throws IOException {
 
 		BufferedOutputStream bos = new BufferedOutputStream(
 				new FileOutputStream(new File("./src/task/Test.txt"), true));
 
-		bos.write(new String(sb).getBytes());
+		bos.write(new String(str).getBytes());
 		bos.write('\n');
 		bos.close();
 	}
 
 	/**
-	 * 打印信息，包括出票窗口、票号、时间、座位号和提示语
+	 * 打印信息
+	 * 
 	 * @param num 传入票号
 	 * @return 返回一个 StringBuilder 类型的参数
 	 */
-	public static StringBuilder printInfor(int num) {
+	public static String printInfor(int num) {
 
-		String str = "欢迎光临直播间\n";
+		String title = "欢迎光临直播间\n";
 
-		StringBuilder sb = new StringBuilder(str + getTicket(num) + getDate() + getSeat(num) + "\n");
+		StringBuilder sb = new StringBuilder(title);
+		sb.append(getTicket(num));
+		sb.append(getDate());
+		sb.append(getSeat(num));
+		sb.append("\r\n观影时间为 ： ");
+		sb.append(getCalendar(CURRENT_TIME));
+		sb.append("\r\n");
 
 		System.out.println(sb);
 
-		return sb;
+		return sb.toString();
 	}
 
 	/**
@@ -90,7 +107,7 @@ public class Tools {
 	}
 
 	/**
-	 * 获取时间
+	 * 获取出票时间
 	 * 
 	 * @return 返回一个字符串
 	 */
@@ -120,6 +137,28 @@ public class Tools {
 		}
 
 		return "\n座位为： 第 " + line + " 排  " + "第 " + list + " 列";
+	}
+
+	/**
+	 * 获取观影日期
+	 * @param time 当前时间，final修饰不可更改
+	 * @return 返回一个字符串：包含年、月、日、时、分的日期
+	 */
+	private static String getCalendar(Long time) {
+
+		Calendar cal = Calendar.getInstance();
+
+		cal.setTimeInMillis(time);
+
+		cal.add(Calendar.DAY_OF_MONTH, +3);
+
+		Date date = cal.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+
+		String s = dateFormat.format(date);
+
+		return s;
 	}
 }
 ```
