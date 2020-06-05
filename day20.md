@@ -259,6 +259,20 @@ true
 
 student1 和 student3 的 equals 方法返回值是 true ，所以他们的 hashCode 值相同
 
+### 2.4 finalize
+
+当垃圾回收器确定不存在对该对象的更多引用时，由对象的垃圾回收器调用此方法
+
+```java
+protected void finalize() throws Throwable
+```
+
+>1、子类重写 finalize 方法，以配置系统资源或执行其他清除，例如关闭文件
+>
+>2、对于任何给定对象，Java 虚拟机最多只调用一次 finalize 方法。
+>
+>3、finalize 方法抛出的任何异常都会导致此对象的终结操作停止，但可以通过其他方法忽略它
+
 ## 3. 异常
 
 ### 3.1 Throwable 类
@@ -288,7 +302,7 @@ public String toString()
 public void printStackTrace()
 ```
 
-测试
+
 
 ```java
 public class Test {
